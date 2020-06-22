@@ -23,20 +23,20 @@ class ColorBox extends React.Component {
     }
 
     render() {
-        const { hex, name } = this.props;
+        const { color, name } = this.props;
         const { overlayOpen } = this.state;
 
         return (
-            <CopyToClipboard text={hex} onCopy={this.overlayToggle}>
-                 <div style={{background: hex}} className="ColorBox">
+            <CopyToClipboard text={color} onCopy={this.overlayToggle}>
+                 <div style={{background: color}} className="ColorBox">
                      {/* When user clicks on the block */}
                      <div 
-                        style={{background: hex}}
+                        style={{background: color}}
                         className={`copy-overlay ${overlayOpen && "show"}`} 
                     />
                     <div className={`copy-msg ${overlayOpen && "show"}`}>
                         <h1>COPIED!</h1>
-                        <p>{hex}</p>
+                        <p>{color}</p>
                     </div>
 
 

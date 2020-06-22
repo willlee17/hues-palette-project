@@ -42,7 +42,7 @@ let getPalette = (initPalette) => {
     }
 
     for(let color of initPalette.colors) {
-        let scale = getScale(color.color, 10).reverse();
+        let scale = getScale(color.color, 10);
 
         for(let i in scale) {
             newPalette.colors[levels[i]].push({
@@ -50,7 +50,7 @@ let getPalette = (initPalette) => {
                 id: color.name.toLowerCase().replace(/ /g, "-"),
                 hex: scale[i],
                 rgb: chroma(scale[i]).css(),
-                rgba: chroma(scale[i]).css().replace("rgba", "rgba").replace(")", ",1.0)"),
+                rgba: chroma(scale[i]).css().replace("rgb", "rgba").replace(")", ",1.0)"),
             })
         }
     }
@@ -63,12 +63,10 @@ let getScale = (hexColor, numColors) => {
 }
 
 let getRange = (hexColor) => {
-    const end = "#fff";
-
     return [
-        chroma(hexColor).darken(1.3).hex(),
+        '#fff',
         hexColor,
-        end
+        chroma(hexColor).darken(1.4).hex()
     ]
 }
 

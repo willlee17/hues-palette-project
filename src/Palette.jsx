@@ -7,8 +7,9 @@ class Palette extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            level: 500
-        }; 
+            level: 500,
+            format: 'hex',
+        }
     }
 
     changeLevel = (newLevel) => {
@@ -17,22 +18,29 @@ class Palette extends React.Component {
         })
     }
 
+    changeFormat = (newFormat) => {
+        this.setState({
+            format: newFormat
+        })
+    }
+
 
     render() {
-        const { colors } = this.props.palette;
-        const { level } = this.state;
-
-        console.log('colors!: ', colors)
+        const { colors, paletteName, emoji } = this.props.palette;
+        const { level, format } = this.state;
 
         return (
             <div className="Palette">
-                <Navbar level={level} changeLevel={this.changeLevel}/>
+                <Navbar level={level} changeLevel={this.changeLevel} changeFormat={this.changeFormat}/>
 
                 <div className="Palette-colors">
-                    { colors[level].map(color => (<ColorBox hex={color.hex} name={color.name}/>)) }
+                    { colors[level].map(color => (<ColorBox color={color[format]} name={color.name} key={color.id}/>)) }
                 </div>
 
-                {/* footer */}
+                <footer className="Palette-footer">
+                    { paletteName }
+                    <span className="emoji">{ emoji }</span>
+                </footer>
             </div>
         )
     }
