@@ -1,7 +1,8 @@
 import React from 'react'
 import './ColorBox.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-
+import { Link } from 'react-router-dom'
+import chroma from 'chroma-js'
 
 class ColorBox extends React.Component { 
     constructor(props) {
@@ -23,8 +24,10 @@ class ColorBox extends React.Component {
     }
 
     render() {
-        const { color, name } = this.props;
+        const { color, name, colorId, paletteId, showMoreLink } = this.props;
         const { overlayOpen } = this.state;
+
+        const isDark = chroma(color).luminance() <= 0.1
 
         return (
             <CopyToClipboard text={color} onCopy={this.overlayToggle}>
@@ -42,10 +45,19 @@ class ColorBox extends React.Component {
 
                     <div className="copy-container">
                         <div className="box-content">
-                            <span>{ name }</span>
+                            <span className={!!isDark && "light-text"}>{ name }</span>
+                            <button className="copy-button">COPY!</button>
                         </div>
-                        <button className="copy-button">COPY!</button>
-                        <span className="see-more">More</span>
+                        {
+                            showMoreLink && (
+                                <Link to={`/palette/${paletteId}/${colorId}`} onClick={(e) => e.stopPropagation()}>
+                                    <span className="see-more">
+                                            More
+                                    </span>
+                                </Link>
+                            )
+                        }
+                       
                     </div>
                 </div>
            </CopyToClipboard>

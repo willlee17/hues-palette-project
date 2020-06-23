@@ -36,7 +36,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { level, changeLevel }= this.props;
+        const { level, changeLevel, showLevel }= this.props;
         const { format, snackbarOpen } = this.state;
         return (
                 <header className="navbar">
@@ -44,18 +44,22 @@ class Navbar extends React.Component {
                         <Link to="/"> Hue Palettes </Link>
                     </div>
 
-                    <div className="slider-container">
-                        <span>Level: {level}</span>
-                        <div className="slider">
-                            <Slider 
-                                defaultValue={level} 
-                                min={100} 
-                                max={900}
-                                step={100}
-                                onAfterChange={changeLevel}
-                            />
+                    { !!showLevel && (
+                        <div className="slider-container">
+                            <span>Level: {level}</span>
+                            <div className="slider">
+                                <Slider 
+                                    defaultValue={level} 
+                                    min={100} 
+                                    max={900}
+                                    step={100}
+                                    onAfterChange={changeLevel}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    
                     <div className="select-container">
                         <Select value={format} onChange={this.handleFormatChange}>
                             <MenuItem value="hex">Hex</MenuItem>
